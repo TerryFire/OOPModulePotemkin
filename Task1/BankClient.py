@@ -47,6 +47,14 @@ class Bank:
         except IOError:
             print(f"Error: Could not read from {file_name}")
 
+    def change_balance(self, name, amount):
+        client = self.find_client(name)
+        if client is not None:
+            client.balance += amount
+            print(f"Balance for {name} changed by {amount}. New balance: {client.balance}")
+        else:
+            print(f"Client {name} not found in the bank.")
+
 # Приклад використання
 bank = Bank()
 bank.add_client("Sam")
@@ -59,5 +67,9 @@ bank.save_data_to_file("bank_data.txt")
 bank.load_data_from_file("bank_data.txt")
 
 # Знайти клієнта
-client = bank.find_client("John")
+client = bank.find_client("Sam")
 print(client)
+
+#Приклад зміни балансу
+bank.change_balance("Sam", 100)
+bank.change_balance("Sam", -20)
